@@ -8,7 +8,7 @@ Tested up to: 4.9.6
 Stable tag: 1.0
 
 ## Description
-### Cointopay Gateway for Easy Digital Downloads plugin to accept cointopay payment for a service or product
+Cointopay Gateway for Easy Digital Downloads plugin to accept cointopay payment for a service or product
  
 ### Choose from Top Payment Gateways.
 All of our payment gateways are included in the plugin. Choose from PayPal, Stripe, Authorize.net, Braintree or 2Checkout. 
