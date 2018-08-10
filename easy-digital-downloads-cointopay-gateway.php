@@ -30,7 +30,7 @@ define("EDD_COINTOPAYGATEWAY_DIR", dirname(__FILE__));
 	function cointopay_notice_edd() {
 	 echo '<div id="message" class="error fade"><p style="line-height: 150%">';
 	
-		_e('<strong>Cointopay Gateway for Easy Digital Downloads</strong></a> requires the Easy Digital Downloads plugin to be activated. Please <a href="https://wordpress.org/plugins/easy-digital-downloads/">install / activate Paid Memberships Pro</a> first.', 'EDDGateway_cointopay');
+		_e('<strong>Cointopay Gateway for Easy Digital Downloads</strong></a> requires the Easy Digital Downloads plugin to be activated. Please <a href="https://wordpress.org/plugins/easy-digital-downloads/">install / activate Easy Digital Downloads</a> first.', 'EDDGateway_cointopay');
 	
 		echo '</p></div>';
 	}
