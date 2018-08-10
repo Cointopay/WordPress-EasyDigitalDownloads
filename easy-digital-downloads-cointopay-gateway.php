@@ -713,15 +713,13 @@ function edd_cointopay_success_page_content( $content ) {
 }
 
 /**
- * Mark payment as complete on return from Cointopay if a Cointopay Identity Token is present.
- *
- * See https://github.com/easydigitaldownloads/easy-digital-downloads/issues/6197
+ * Mark payment as complete on return from Cointopay.
  *
  * @since 2.8.13
  * @return void
  */
 function edd_cointopay_process_pdt_on_return() {
-//echo "hello".$_REQUEST['payment-id'];die();
+
 	if ( ! isset( $_GET['payment-id'] ) ) {
 		return;
 	}
@@ -737,7 +735,7 @@ function edd_cointopay_process_pdt_on_return() {
 	if( empty( $payment_id ) ) {
 		return;
 	}
-//echo "hello".$_REQUEST['payment-id'];die();
+
 	$payment = new EDD_Payment( $payment_id );
 	if( isset($_GET['ConfirmCode']) && $payment->ID > 0 ) {
     $data = [ 
@@ -803,8 +801,6 @@ function edd_cointopay_process_pdt_on_return() {
 }
 function  validateOrder($data)
    {
-       //$this->pp($data);
-       //https://cointopay.com/v2REAPI?MerchantID=14351&Call=QA&APIKey=_&output=json&TransactionID=230196&ConfirmCode=YGBMWCNW0QSJVSPQBCHWEMV7BGBOUIDQCXGUAXK6PUA
        $params = array(
        "authentication:1",
        'cache-control: no-cache',
