@@ -1,11 +1,11 @@
 # Cointopay Gateway for Easy Digital Downloads
 Tags: cointopay, payments, cointopay payments, cointopay checkout
 
-Requires at least: 4
+Requires at least: 4.4.2
 
-Tested up to: 4.9.6
+Tested up to: 5.6.0
 
-Stable tag: 1.0
+Stable tag: 1.2
 
 ## Description
 Cointopay gateway for Easy Digital Downloads is a plugin to accept Cryptocurrency payments for a service or product using Cointopay payment service.

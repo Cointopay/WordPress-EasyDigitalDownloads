@@ -1,6 +1,28 @@
 <?php
+/**
+ * Plugin Name: Cointopay Gateway for Easy Digital Downloads
+ * Description: Cointopay payment gateway for Easy Digital Downloads
+ * Author: Cointopay
+ * Version: 1.0
+ *
+ * @category Addon
+ * @package  Easy_Digital_Downloads
+ * @author   Cointopay <info@cointopay.com>
+ * @license  GNU General Public License <http://www.gnu.org/licenses/>
+ * @link     cointopay.com
+ */
+
 namespace cointopay;
 
+/**
+ * Define Cointopay Class
+ *
+ * @category Addon
+ * @package  Easy_Digital_Downloads
+ * @author   Cointopay <info@cointopay.com>
+ * @license  GNU General Public License <http://www.gnu.org/licenses/>
+ * @link     cointopay.com
+ */
 class Cointopay
 {
     const VERSION = '1.0';
@@ -12,24 +34,43 @@ class Cointopay
     public static $user_agent = '';
     public static $selected_currency = '';
 
+    /**
+     * Cointopay configuration setting.
+     *
+     * @param array $authentication Configuration
+     *
+     * @return string
+     */
     public static function config($authentication)
     {
-        if (isset($authentication['merchant_id']))
+        if (isset($authentication['merchant_id'])) {
             self::$merchant_id = $authentication['merchant_id'];
+        }
 
-        if (isset($authentication['security_code']))
+        if (isset($authentication['security_code'])) {
             self::$security_code = $authentication['security_code'];
+        }
 
-        if (isset($authentication['default_currency']))
+        if (isset($authentication['default_currency'])) {
             self::$default_currency = $authentication['default_currency'];
+        }
 
-        if (isset($authentication['user_agent']))
+        if (isset($authentication['user_agent'])) {
             self::$user_agent = $authentication['user_agent'];
+        }
 
-        if (isset($authentication['selected_currency']))
+        if (isset($authentication['selected_currency'])) {
             self::$selected_currency = $authentication['selected_currency'];
+        }
     }
 
+    /**
+     * Cointopay varify marchent.
+     *
+     * @param array $authentication Configuration
+     *
+     * @return string
+     */
     public static function verifyMerchant($authentication = array())
     {
         try {
@@ -43,7 +84,16 @@ class Cointopay
         }
     }
 
-
+    /**
+     * Cointopay Request.
+     *
+     * @param string $url            Api Url
+     * @param string $method         Api Request method
+     * @param array  $params         Params Passing
+     * @param array  $authentication Authentication
+     *
+     * @return array
+     */
     public static function request($url, $method = 'GET', $params = array(), $authentication = array())
     {
         $merchant_id = isset($authentication['merchant_id']) ? $authentication['merchant_id'] : self::$merchant_id;
@@ -53,8 +103,9 @@ class Cointopay
         $request_check = '';
 
         # Check if credentials was passed
-        if (empty($merchant_id) || empty($security_code))
+        if (empty($merchant_id) || empty($security_code)) {
             \cointopay\Exception::throwException(400, array('reason' => 'CredentialsMissing'));
+        }
 
         if (isset($params) && !empty($params)) {
             $amount = $params['price'];
@@ -72,12 +123,10 @@ class Cointopay
             $result = self::callApi($url, $user_agent);
             return $result;
         } else {
-
             $url = "MerchantAPI?Checkout=true&MerchantID=$merchant_id&Amount=$amount&AltCoinID=$selected_currency&CustomerReferenceNr=$order_id&SecurityCode=$security_code&inputCurrency=$currency&output=json&testmerchant";
             $result = self::callApi($url, $user_agent);
 
             if ($result == 'testmerchant success') {
-
                 $url = "MerchantAPI?Checkout=true&MerchantID=$merchant_id&Amount=$amount&AltCoinID=$selected_currency&CustomerReferenceNr=$order_id&SecurityCode=$security_code&output=json&inputCurrency=$currency&transactionconfirmurl=$callback_url&transactionfailurl=$cancel_url";
                 $result = self::callApi($url, $user_agent);
                 return $result;
@@ -87,18 +136,28 @@ class Cointopay
         }
     }
 
+    /**
+     * Cointopay callApi
+     *
+     * @param string $url        Api Url
+     * @param string $user_agent User Details
+     *
+     * @return array
+     */
     public static function callApi($url, $user_agent)
     {
-
         $url = 'https://cointopay.com/' . $url;
 
         $curl = curl_init();
-        curl_setopt_array($curl, array(
+        curl_setopt_array(
+            $curl,
+            array(
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $url,
             CURLOPT_USERAGENT => $user_agent
-        ));
-        $response = json_decode(curl_exec($curl), TRUE);
+            )
+        );
+        $response = json_decode(curl_exec($curl), true);
 
         $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
