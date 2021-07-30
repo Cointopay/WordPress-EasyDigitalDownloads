@@ -3,9 +3,9 @@ Tags: cointopay, payments, cointopay payments, cointopay checkout
 
 Requires at least: 4.4.2
 
-Tested up to: 5.7.0
+Tested up to: 5.8.0
 
-Stable tag: 1.3
+Stable tag: 1.4
 
 ## Description
 Cointopay gateway for Easy Digital Downloads is a plugin to accept Cryptocurrency payments for a service or product using Cointopay payment service.
@@ -24,4 +24,9 @@ Install Cointopay plugin on top of Easy Digital Downloads Wordpress plugin to us
 * Enabled it from Easy Digital Downloads payment settings and you can see it in checkout page.
 
 
-## Frequently Asked Questions
+### Support or Contact
+
+Please contact support@cointopay.com for feature requests and/or incidents, or create a ticket here: https://cointopay.freshdesk.com/helpdesk
+
+### About Cointopay.com
+We are an international crypto currency payment processor, meaning that we accept payments from your customers and make the funds available to you (incl. in form of fiat currency like euro). The direct integration with Magento provides you with a seamless payment experience while underlying dealing with diverse and complex blockchain technologies like Bitcoin, Ethereum, Neo, Dash, Ripple and many more. P.S. If you want your own crypto currency to become available in this plugin, we can provide that for you as well, Cointopay has been a technological payment incubator since 2014!
