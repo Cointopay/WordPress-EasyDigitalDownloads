@@ -3,7 +3,7 @@
  * Plugin Name: Cointopay Gateway for Easy Digital Downloads
  * Description: Cointopay payment gateway for Easy Digital Downloads
  * Author: Cointopay.com
- * Version: 1.5
+ * Version: 1.6
  * Author URI: https://cointopay.com/
  * Plugin URI: https://cointopay.com/
  *
