@@ -3,7 +3,7 @@
  * Plugin Name: Cointopay Gateway for Easy Digital Downloads
  * Description: Cointopay payment gateway for Easy Digital Downloads
  * Author: Cointopay.com
- * Version: 1.6
+ * Version: 1.7
  * Author URI: https://cointopay.com/
  * Plugin URI: https://cointopay.com/
  *
@@ -75,6 +75,10 @@ final class EDD_Cointopay_Payments
             // The Cointopay Login & Pay libraries require PHP 5.3
             return;
         }
+		if ( ! class_exists( 'Easy_Digital_Downloads' ) ) {
+			add_action( 'admin_notices', array( self::$instance, 'cointopay_admin_notices' ) );
+			return;
+		}
         add_filter('edd_payment_confirm_cointopay', array( $this, 'eddCointopaysuccessPagecontent' ));
         if (isset($_REQUEST['cointopay_reference_id'])) {
             $cointopay_reference_id = '';
@@ -85,9 +89,6 @@ final class EDD_Cointopay_Payments
 
         // Run this separate so we can ditch as early as possible
         $this->_register();
-        if (! edd_is_gateway_active($this->gateway_id)) {
-            return;
-        }
         $this->_config();
         $this->_includes();
         $this->_filters();
@@ -304,8 +305,9 @@ final class EDD_Cointopay_Payments
      */
     public function eddRegistercointopayGatewaysection($gateway_sections)
     {
-        $gateway_sections['cointopay'] = __('Cointopay Payments', 'EDDGateway-cointopay');
-
+		if (edd_is_gateway_active($this->gateway_id)) {
+			$gateway_sections['cointopay'] = __('Cointopay Payments', 'EDDGateway-cointopay');
+		}
         return $gateway_sections;
     }
 
@@ -767,6 +769,12 @@ final class EDD_Cointopay_Payments
 
         return $this->redirect_uri;
     }
+	
+	public function cointopay_admin_notices() {
+
+		add_settings_error( 'edd-notices', 'edd-cointopay-admin-error', ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) ? __( '<b>Easy Digital Downloads Payment Gateway by Cointopay</b>add-on requires <a href="https://easydigitaldownloads.com" target="_new"> Easy Digital Downloads</a> plugin. Please install and activate it.', 'edd-cointopay' ) : ( ! extension_loaded( 'curl' ) ? ( __( '<b>Easy Digital Downloads Payment Gateway by Cointopay</b>requires PHP CURL. You need to activate the CURL function on your server. Please contact your hosting provider.', 'edd-cointopay' ) ) : '' ) ), 'error' );
+		settings_errors( 'edd-notices' );
+	}
 }
 
 /**
